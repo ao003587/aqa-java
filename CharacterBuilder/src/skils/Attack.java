@@ -1,8 +1,27 @@
 package skils;
+import enums.DamageType;
+import enums.SkillType;
 
-public class Attack implements Skill {
+public class Attack extends Skill {
 
-    public String Apply() {
-        return "ATTACKS!";
+    @Override
+    public String getName() {
+        return "Attack";
     }
+
+    @Override
+    public DamageType getDamageType() {
+        return DamageType.FIRE;
+    }
+
+    @Override
+    public float getValue() {
+        return 8;
+    }
+
+    @Override
+    public SkillType GetType() {
+        return SkillType.BATTLE;
+    }
+
 }
