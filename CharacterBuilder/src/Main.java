@@ -1,4 +1,5 @@
 import enums.DamageType;
+import objects.Building;
 import objects.builders.CharacterBuilder;
 import objects.builders.MonsterBuilder;
 import objects.builders.NPCBuilder;
@@ -25,7 +26,7 @@ public class Main {
                 .createCharacter();
 
         var skeletonSkillSet = new ArrayList<Skill>();
-        battleMageSkillSet.add(new Attack());
+        skeletonSkillSet.add(new Attack());
 
         var skeleton = new MonsterBuilder()
                 .setName("Skeleton")
@@ -45,12 +46,15 @@ public class Main {
                 .setRespectLevel(50)
                 .createNPC();
 
-        System.out.printf("%s %s", mage.getName(), mage.useSkillOn(1, skeleton));
-        System.out.println();
-        System.out.printf("%s says %s", skeleton.getName(), skeleton.OnAttack());
-        System.out.println();
-        System.out.printf("%s %s", mage.getName(), mage.useSkillOn(0, citizen));
-        System.out.println();
-        System.out.printf("%s %s says %s", citizen.getName(), citizen.getProfession(), citizen.OnAttack());
+        var house = new Building(3, "House");
+        house.content.add(mage);
+        house.content.add(skeleton);
+        house.content.add(citizen);
+
+        System.out.printf("%s\n", house);
+        System.out.printf("%s %s\n", mage.getName(), mage.useSkillOn(1, skeleton));
+        System.out.printf("%s says %s\n", skeleton.getName(), skeleton.OnAttack());
+        System.out.printf("%s %s\n", mage.getName(), mage.useSkillOn(0, citizen));
+        System.out.printf("%s %s says %s\n", citizen.getName(), citizen.getProfession(), citizen.OnAttack());
     }
 }

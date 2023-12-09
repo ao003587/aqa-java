@@ -5,6 +5,9 @@ import skils.Target;
 import enums.DamageType;
 
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Objects;
+import java.util.stream.Collectors;
 
 public class Monster extends InteractiveObject implements Target {
 
@@ -42,5 +45,15 @@ public class Monster extends InteractiveObject implements Target {
             value *= 0.5f;
 
         return value;
+    }
+
+    @Override
+    public String toString() {
+        return "Monster{ " +
+                "name=" + getName() +
+                ", resistance=" + Arrays.toString(resistance) +
+                ", skills=" + skills.stream().map(Objects::toString).collect(Collectors.joining(",", "[", "]")) +
+                ", experience=" + experience +
+                " }";
     }
 }

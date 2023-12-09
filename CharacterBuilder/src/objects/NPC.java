@@ -34,4 +34,14 @@ public class NPC extends InteractiveObject implements Target {
         setHealth(health - value);
         return value;
     }
+
+    @Override
+    public String toString() {
+        return "NPC{ " +
+                "name=" + getName() +
+                ", profession='" + profession + '\'' +
+                ", coins=" + coins +
+                ", respectLevel=" + respectLevel +
+                " } " + super.toString();
+    }
 }

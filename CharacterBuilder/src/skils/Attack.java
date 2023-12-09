@@ -2,6 +2,8 @@ package skils;
 import enums.DamageType;
 import enums.SkillType;
 
+import java.util.StringJoiner;
+
 public class Attack extends Skill {
 
     @Override
@@ -23,5 +25,4 @@ public class Attack extends Skill {
     public SkillType GetType() {
         return SkillType.BATTLE;
     }
-
 }

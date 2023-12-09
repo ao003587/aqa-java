@@ -4,6 +4,7 @@ import skils.Skill;
 import skils.Target;
 
 import java.util.ArrayList;
+import java.util.stream.Collectors;
 
 public class Character extends InteractiveObject {
     public static final float SKILL_MODIFICATION_MULTIPLICATOR = 0.1f;
@@ -48,5 +49,17 @@ public class Character extends InteractiveObject {
             case MAGIC -> getIntelligence();
             case BATTLE -> getStrength() + getAgility();
         } * SKILL_MODIFICATION_MULTIPLICATOR;
+    }
+
+    @Override
+    public String toString() {
+        return new StringBuffer("Character{ ")
+                .append("name=").append(getName())
+                .append(", strength=").append(strength)
+                .append(", agility=").append(agility)
+                .append(", intelligence=").append(intelligence)
+                .append(", skills=").append(skills.stream().map(Skill::toString).collect(Collectors.joining(", ", "[", "]")))
+                .append(" }")
+                .toString();
     }
 }
