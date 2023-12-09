@@ -3,6 +3,8 @@ package skils;
 import enums.DamageType;
 import enums.SkillType;
 
+import java.util.StringJoiner;
+
 public abstract class Skill {
 
     public String ApplyOn(Target target, float modifier) {
@@ -17,4 +19,13 @@ public abstract class Skill {
     public abstract float getValue();
 
     public abstract SkillType GetType();
+
+    @Override
+    public String toString() {
+        return new StringJoiner(", ", "(", ")")
+                .add("Name: " + getName())
+                .add("DamageType: " + getDamageType())
+                .add("Value: " + getValue())
+                .toString();
+    }
 }
