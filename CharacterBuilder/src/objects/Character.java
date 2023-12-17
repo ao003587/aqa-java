@@ -47,7 +47,7 @@ public class Character extends InteractiveObject {
     }
 
     private float getModifier(Skill skill) {
-        return switch (skill.GetType()) {
+        return switch (skill.getType()) {
             case MAGIC, HEAL -> getIntelligence();
             case INTERACTION -> getStrength() + getAgility();
         } * SKILL_MODIFICATION_MULTIPLICATOR;

@@ -58,7 +58,7 @@ public abstract class Skill {
         return value;
     }
 
-    public SkillType GetType() {
+    public SkillType getType() {
         return type;
     }
 
@@ -70,7 +70,8 @@ public abstract class Skill {
     public String toString() {
         return new StringJoiner(", ", "(", ")")
                 .add("Name: " + getName())
-                .add("Damage Type: " + getImpactType())
+                .add("Type: " + getType())
+                .add("Impact Type: " + getImpactType())
                 .add("Value: " + getValue())
                 .add("Maximum Targets: " + getMaximumTargets())
                 .toString();
