@@ -1,6 +1,7 @@
 package enums;
 
 public enum SkillType {
-    BATTLE,
-    MAGIC
+    INTERACTION,
+    MAGIC,
+    HEAL
 }
