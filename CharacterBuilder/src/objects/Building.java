@@ -29,7 +29,6 @@ public class Building extends EnvironmentObject {
                 .append("\n\t- content: ")
                 .append("\n\t\t")
                 .append(content.stream().map(Objects::toString).collect(Collectors.joining("\n\t\t")))
-                .append(" }")
                 .toString();
     }
 }

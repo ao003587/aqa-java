@@ -1,6 +1,6 @@
 package objects.builders;
 
-import enums.DamageType;
+import enums.ImpactType;
 import objects.Monster;
 import skils.Skill;
 
@@ -10,7 +10,7 @@ public class MonsterBuilder {
     private String name;
     private float maxHealthLevel;
     private String attackReaction;
-    private DamageType[] resistance;
+    private ImpactType[] resistance;
     ArrayList<Skill> skills;
     private int experience;
 
@@ -29,7 +29,7 @@ public class MonsterBuilder {
         return this;
     }
 
-    public MonsterBuilder setResistance(DamageType[] resistance) {
+    public MonsterBuilder setResistance(ImpactType[] resistance) {
         this.resistance = resistance;
         return this;
     }

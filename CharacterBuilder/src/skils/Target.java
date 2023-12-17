@@ -1,11 +1,12 @@
 package skils;
 
-import enums.DamageType;
+import enums.ImpactType;
 
 public interface Target {
 
     String getName();
 
-    float damage(DamageType type, float value);
+    float damage(ImpactType type, float value);
 
+    float heal(ImpactType type, float value);
 }

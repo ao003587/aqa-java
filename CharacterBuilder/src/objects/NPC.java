@@ -1,7 +1,7 @@
 package objects;
 
 import skils.Target;
-import enums.DamageType;
+import enums.ImpactType;
 
 public class NPC extends InteractiveObject implements Target {
     private static final int MAX_RESPECT_LEVEL = 100;
@@ -29,9 +29,22 @@ public class NPC extends InteractiveObject implements Target {
     }
 
     @Override
-    public float damage(DamageType type, float value) {
+    public float damage(ImpactType type, float value) {
         var health = getHealth();
+        if (health == 0)
+            return value;
         setHealth(health - value);
+        respectLevel -= 1;
+        return value;
+    }
+
+    @Override
+    public float heal(ImpactType type, float value) {
+        var health = getHealth();
+        respectLevel += 1;
+        if (health == getMaxHealthLevel())
+            return value;
+        setHealth(health + value);
         return value;
     }
 

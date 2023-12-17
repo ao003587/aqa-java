@@ -37,17 +37,19 @@ public class Character extends InteractiveObject {
         return skills;
     }
 
-    public String useSkillOn(int idx, Target target) {
+    public String useSkillOn(int idx, Target[] targets) {
+        if (skills.isEmpty())
+            return "No skills to use";
         var skill = skills.get(idx);
         if(skill == null)
             return "No skill at index " + idx;
-        return "used " + skill.ApplyOn(target, getModifier(skill));
+        return "used " + skill.ApplyOn(targets, getModifier(skill));
     }
 
     private float getModifier(Skill skill) {
         return switch (skill.GetType()) {
-            case MAGIC -> getIntelligence();
-            case BATTLE -> getStrength() + getAgility();
+            case MAGIC, HEAL -> getIntelligence();
+            case INTERACTION -> getStrength() + getAgility();
         } * SKILL_MODIFICATION_MULTIPLICATOR;
     }
 

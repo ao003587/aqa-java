@@ -2,7 +2,7 @@ package objects;
 
 import skils.Skill;
 import skils.Target;
-import enums.DamageType;
+import enums.ImpactType;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -11,20 +11,20 @@ import java.util.stream.Collectors;
 
 public class Monster extends InteractiveObject implements Target {
 
-    public DamageType[] resistance;
+    public ImpactType[] resistance;
 
     private final ArrayList<Skill> skills;
 
     private final int experience;
     
-    public Monster(String name, float maxHealthLevel, String attackReaction, DamageType[] resistance, ArrayList<Skill> skills, int experience) {
+    public Monster(String name, float maxHealthLevel, String attackReaction, ImpactType[] resistance, ArrayList<Skill> skills, int experience) {
         super(name, maxHealthLevel, attackReaction);
         this.resistance = resistance;
         this.skills = skills;
         this.experience = experience;
     }
 
-    public DamageType[] getResistance() {
+    public ImpactType[] getResistance() {
         return resistance;
     }
 
@@ -37,13 +37,22 @@ public class Monster extends InteractiveObject implements Target {
     }
 
     @Override
-    public float damage(DamageType type, float value) {
+    public float damage(ImpactType type, float value) {
         var health = getHealth();
-        setHealth(health - value);
-
-        if(type == DamageType.PHYSICAL)
+        if(type == ImpactType.PHYSICAL)
             value *= 0.5f;
+        if (health == 0)
+            return value;
+        setHealth(health - value);
+        return value;
+    }
 
+    @Override
+    public float heal(ImpactType type, float value) {
+        var health = getHealth();
+        if (health == getMaxHealthLevel())
+            return value;
+        setHealth(health + value);
         return value;
     }
 
