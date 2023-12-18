@@ -26,9 +26,12 @@ import java.util.AbstractMap;
 import java.util.stream.Collectors;
 
 public class Main {
+
+    private static final String FILE_PATH = "resources/skills.csv";
+
     public static void main(String[] args) {
 
-        var skills = GetSkills();
+        var skills = getSkills();
 
         skills.forEach((unit, skillSet) -> {
             System.out.printf("%s:\n", unit);
@@ -78,9 +81,9 @@ public class Main {
         System.out.printf("%s %s says %s\n", citizen.getName(), citizen.getProfession(), citizen.OnAttack());
     }
 
-    private static Map<String, List<Skill>> GetSkills() {
+    private static Map<String, List<Skill>> getSkills() {
         try {
-            var skillSet = CsvReader.readFromFile("resources/skills.csv");
+            var skillSet = CsvReader.readFromFile(FILE_PATH);
             return Arrays
                     .stream(skillSet)
                     .map(Main::toSkill)
@@ -91,20 +94,20 @@ public class Main {
         }
     }
 
-   private static AbstractMap.SimpleEntry<String, Skill> toSkill(String paramsString) throws RuntimeException {
+    private static AbstractMap.SimpleEntry<String, Skill> toSkill(String paramsString) throws RuntimeException {
         var params = paramsString.replace("\r", "").split(";");
         if (params.length != 6)
             throw new RuntimeException("Invalid skill params: " + params);
         try {
             var impactType = ImpactType.valueOf(params[SkillsDataFieldsMap.impactType]);
-            var skill = CreateSkill(params, impactType);
+            var skill = createSkill(params, impactType);
             return new AbstractMap.SimpleEntry<>(params[SkillsDataFieldsMap.owner], skill);
         } catch (Exception e) {
             throw new RuntimeException("Invalid skill params: " + params, e);
         }
     }
 
-    private static Skill CreateSkill(String[] params, ImpactType impactType) {
+    private static Skill createSkill(String[] params, ImpactType impactType) {
         return switch (impactType) {
             case PHYSICAL ->
                     new Physical(SkillType.valueOf(params[SkillsDataFieldsMap.type]), Float.parseFloat(params[SkillsDataFieldsMap.value]), params[SkillsDataFieldsMap.name], Integer.parseInt(params[SkillsDataFieldsMap.maximumTargets]));
