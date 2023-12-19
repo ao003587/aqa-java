@@ -15,9 +15,7 @@ import skils.heal.Life;
 import skils.heal.Medicine;
 import utils.CsvReader;
 import utils.SkillsDataFieldsMap;
-import java.io.FileReader;
 import java.io.IOException;
-import java.nio.CharBuffer;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -27,7 +25,7 @@ import java.util.stream.Collectors;
 
 public class Main {
 
-    private static final String FILE_PATH = "resources/skills.csv";
+    private static final String FILE_PATH = "resources/skills100.csv";
 
     public static void main(String[] args) {
 
