@@ -12,14 +12,16 @@ public abstract class Skill {
     private final float value;
     private final String name;
     private final int maximumTargets;
+    private final int id;
 
     protected ImpactType impactType;
 
-    public Skill(SkillType type, float value, String name, int maximumTargets) {
+    public Skill(int id, SkillType type, float value, String name, int maximumTargets) {
         this.type = type;
         this.value = value;
         this.name = name;
         this.maximumTargets = maximumTargets;
+        this.id = id;
     }
 
     public String ApplyOn(Target[] targets, float modifier) {
@@ -46,6 +48,10 @@ public abstract class Skill {
         return builder.toString();
     }
 
+    public int getId() {
+        return id;
+    }
+
     public String getName() {
         return name;
     }
@@ -69,6 +75,7 @@ public abstract class Skill {
     @Override
     public String toString() {
         return new StringJoiner(", ", "(", ")")
+                .add("Id: " + getId())
                 .add("Name: " + getName())
                 .add("Type: " + getType())
                 .add("Impact Type: " + getImpactType())

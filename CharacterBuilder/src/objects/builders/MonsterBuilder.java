@@ -5,6 +5,7 @@ import objects.Monster;
 import skils.Skill;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class MonsterBuilder {
     private String name;
@@ -34,8 +35,8 @@ public class MonsterBuilder {
         return this;
     }
 
-    public MonsterBuilder setSkills(ArrayList<Skill> skills) {
-        this.skills = skills;
+    public MonsterBuilder setSkills(List<Skill> skills) {
+        this.skills = new ArrayList<>(skills);
         return this;
     }
 
