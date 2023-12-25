@@ -4,6 +4,7 @@ import objects.Character;
 import skils.Skill;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class CharacterBuilder {
     private float health;
@@ -38,8 +39,8 @@ public class CharacterBuilder {
         return this;
     }
 
-    public CharacterBuilder setSkills(ArrayList<Skill> skills) {
-        this.skills = skills;
+    public CharacterBuilder setSkills(List<Skill> skills) {
+        this.skills = new ArrayList<>(skills);
         return this;
     }
 
