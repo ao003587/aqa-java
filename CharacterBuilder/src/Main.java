@@ -42,8 +42,8 @@ public class Main {
                 .sorted((leftOperation, rightOperation) -> (int)(leftOperation.time() - rightOperation.time()))
                 .forEach(operation -> System.out.printf("%s: %d ms\n", operation.name(), operation.time()));
 
-        var dateFrom = new Date(2023, Calendar.APRIL, 6, 10, 23);
-        var dateTo = new Date(2024, Calendar.AUGUST, 12, 5, 23);
+        var dateFrom = new Date(123, Calendar.APRIL, 6, 10, 23);
+        var dateTo = new Date(124, Calendar.AUGUST, 12, 5, 23);
         var dateDiff = dateTo.getTime() - dateFrom.getTime();
         var dateDiffInDays = dateDiff / (1000 * 60 * 60 * 24);
         System.out.printf("%d days between %s and %s", dateDiffInDays, dateFrom, dateTo);
