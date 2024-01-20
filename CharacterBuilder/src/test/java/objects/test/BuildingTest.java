@@ -7,7 +7,6 @@ import objects.builders.MonsterBuilder;
 import objects.builders.NPCBuilder;
 import org.testng.Assert;
 import org.testng.annotations.Test;
-import skils.Skill;
 
 import java.util.ArrayList;
 
@@ -54,16 +53,17 @@ public class BuildingTest extends TestBase {
 
     @Test(groups = {"building.output"})
     public void buildingShouldCorrectlyFormatTextPresentation() {
-        var expected = "Building: \n" +
-                "\t- name: House\n" +
-                "\t- size: 1\n" +
-                "\t- content: \n" +
-                "\t\tMonster{ name=Skeleton, resistance=[], skills=[], experience=10 }";
+        var expected = """
+                Building:\s
+                \t- name: House
+                \t- size: 1
+                \t- content:\s
+                \t\tMonster{ name=Skeleton, resistance=[], skills=[], experience=10 }""";
 
         var npcOne = new MonsterBuilder()
                 .setName("Skeleton")
                 .setExperience(10)
-                .setSkills(new ArrayList<Skill>())
+                .setSkills(new ArrayList<>())
                 .setResistance(new ImpactType[0])
                 .createMonster();
         var house = new Building(1, "House");
