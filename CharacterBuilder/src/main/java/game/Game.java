@@ -53,15 +53,15 @@ public class Game {
                 .createNPC();
 
         var house = new Building(3, "House");
-        house.content.add(mage);
-        house.content.add(skeleton);
-        house.content.add(citizen);
+        house.addObject(mage);
+        house.addObject(skeleton);
+        house.addObject(citizen);
 
         System.out.printf("%s\n", house);
         System.out.printf("%s %s\n", mage.getName(), mage.useSkillOn(1, new Target[]{ skeleton, citizen }));
-        System.out.printf("%s says %s\n", skeleton.getName(), skeleton.OnAttack());
+        System.out.printf("%s says %s\n", skeleton.getName(), skeleton.onAttack());
         System.out.printf("%s %s\n", mage.getName(), mage.useSkillOn(0, new Target[]{ citizen }));
-        System.out.printf("%s %s says %s\n", citizen.getName(), citizen.getProfession(), citizen.OnAttack());
+        System.out.printf("%s %s says %s\n", citizen.getName(), citizen.getProfession(), citizen.onAttack());
     }
 
     private List<Skill> getBasicSkillsByName(String name) {

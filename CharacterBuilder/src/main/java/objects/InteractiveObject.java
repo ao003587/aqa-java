@@ -27,7 +27,7 @@ public abstract class InteractiveObject extends GameObject {
         this.health = health;
     }
 
-    public String OnAttack(){
+    public String onAttack(){
         return attackReaction;
     }
 }

@@ -1,12 +1,13 @@
 package objects;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 import java.util.stream.Collectors;
 
 public class Building extends EnvironmentObject {
 
-    public ArrayList<InteractiveObject> content;
+    private final ArrayList<InteractiveObject> content;
 
     public Building(int size, String name) {
         super(name, size);
@@ -17,8 +18,14 @@ public class Building extends EnvironmentObject {
         return size;
     }
 
-    public ArrayList<InteractiveObject> getContent() {
+    public List<InteractiveObject> getContent() {
         return content;
+    }
+
+    public void addObject(InteractiveObject object) {
+        if(content.size() == size)
+            throw new IllegalStateException("Building is full");
+        content.add(object);
     }
 
     @Override

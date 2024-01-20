@@ -14,7 +14,7 @@ import java.util.stream.Stream;
 
 public class Main {
 
-    private static final String FILE_PATH = "resources/skills100.csv";
+    private static final String FILE_PATH = "src/main/resources/skills100.csv";
 
     public static void main(String[] args) {
 
