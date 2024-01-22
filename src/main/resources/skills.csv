@@ -1,0 +1,10 @@
+id;type;value;name;impactType;maximumTargets;owner
+1;HEAL;3.81;Refresh pills;MEDICINE;1;Bob
+2;MAGIC;2.86;Toxic cloud;POISON;7;Bob
+3;MAGIC;9.54;Fire ball;FIRE;8;Bob
+4;HEAL;3.07;Cure rays;LIFE;1;Bob
+5;INTERACTION;4.73;Set on fire;FIRE;6;Skeleton
+6;HEAL;4.97;Potion;MEDICINE;2;Bob
+7;MAGIC;4.65;Icicle;ICE;7;Bob
+8;MAGIC;4.7;24/365 Dynamic Bomb;ELECTRICITY;2;Bob
+9;INTERACTION;1.58;Attack;PHYSICAL;9;Skeleton
