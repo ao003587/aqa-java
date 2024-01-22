@@ -40,6 +40,8 @@ public class Character extends InteractiveObject {
     public String useSkillOn(int idx, Target[] targets) {
         if (skills.isEmpty())
             return "No skills to use";
+        if(skills.size() <= idx)
+            return "No skill at index " + idx;
         var skill = skills.get(idx);
         if(skill == null)
             return "No skill at index " + idx;
