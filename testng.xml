@@ -27,4 +27,10 @@
         </classes>
     </test>
 
+    <test name="Activities test">
+        <classes>
+            <class name="activities.api.test.ActivityTest"/>
+        </classes>
+    </test>
+
 </suite>
