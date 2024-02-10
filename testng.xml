@@ -33,4 +33,10 @@
         </classes>
     </test>
 
+    <test name="Game test">
+        <classes>
+            <class name="game.api.test.GameApiTest"/>
+        </classes>
+    </test>
+
 </suite>
