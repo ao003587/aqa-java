@@ -41,7 +41,7 @@ public class GameApiTest {
         var expectedDelayDelta = 100;
 
         WireMock.configureFor(port);
-        WireMock.stubFor(WireMock.get("/character/skill/1")
+        WireMock.stubFor(WireMock.get(WireMock.urlEqualTo("/character/skill/1"))
                 .willReturn(WireMock.aResponse()
                         .withStatus(expectedResponseCode)
                         .withHeader("cache-control", "no-store")
