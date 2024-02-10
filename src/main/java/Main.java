@@ -2,21 +2,25 @@ import enums.ImpactType;
 import skils.Skill;
 import skils.SkillsFactory;
 import utils.CsvReader;
-import utils.MeasuredOperation;
 import utils.MeasuredOperationOutput;
 import utils.SkillsDataFieldsMap;
 
 import java.io.IOException;
-import java.util.*;
+import java.util.Arrays;
 import java.util.function.Function;
-import java.util.stream.Collectors;
-import java.util.stream.Stream;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class Main {
 
     private static final String FILE_PATH = "src/main/resources/skills100.csv";
+    private static Logger logger;
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException {
+
+        configureLogger();
+
+        logger.log(Level.CONFIG, String.format("Reading data from file: %s", FILE_PATH));
 
         var readFileOperationOutput = measured(ipt -> {
             try {
@@ -31,47 +35,13 @@ public class Main {
                 .map(Main::toSkill)
                 .toList(), readFileOperationOutput.output(), "Create skills list");
 
-        var streamProcessingOperationResult = measured(Main::streamProcessing, skillsListOperationResult.output(), "Stream processing");
-
-        Stream.Builder<MeasuredOperation> measurementStream = Stream.builder();
-        measurementStream
-                .add(readFileOperationOutput)
-                .add(skillsListOperationResult)
-                .add(streamProcessingOperationResult)
-                .build()
-                .sorted((leftOperation, rightOperation) -> (int)(leftOperation.time() - rightOperation.time()))
-                .forEach(operation -> System.out.printf("%s: %d ms\n", operation.name(), operation.time()));
-
-        var dateFrom = new Date(123, Calendar.APRIL, 6, 10, 23);
-        var dateTo = new Date(124, Calendar.AUGUST, 12, 5, 23);
-        var dateDiff = dateTo.getTime() - dateFrom.getTime();
-        var dateDiffInDays = dateDiff / (1000 * 60 * 60 * 24);
-        System.out.printf("%d days between %s and %s", dateDiffInDays, dateFrom, dateTo);
+        logger.log(Level.CONFIG, String.format("Skills list size: %d", skillsListOperationResult.output().size()));
     }
 
-    private static List<Skill> streamProcessing(List<Skill> list) {
-        int sortSkip = 14;
-        var sortOut = 25;
-        var filterOut = 13;
-
-        System.out.println("1:");
-        list.stream()
-                .sorted((left, right) -> right.getId() - left.getId())
-                .skip(sortSkip)
-                .limit(sortOut)
-                .forEach(System.out::println);
-
-        System.out.println("2:");
-        list.stream()
-                .filter(skill -> skill.getId() % 2 == 0)
-                .limit(filterOut)
-                .forEach(System.out::println);
-
-        System.out.println("3:");
-        list.stream()
-                .collect(Collectors.toMap(Skill::getId, skill -> skill))
-                .forEach((integer, skill) -> System.out.println(integer + " => " + skill));
-        return list;
+    private static void configureLogger() {
+        var logConfigPath = System.getenv("FILE_NAME");
+        System.setProperty("java.util.logging.config.file", logConfigPath);
+        logger = Logger.getLogger(Main.class.getName());
     }
 
     private static Skill toSkill(String paramsString) throws RuntimeException {
@@ -80,6 +50,8 @@ public class Main {
             throw new RuntimeException("Invalid skill params: " + params.length);
         try {
             var impactType = ImpactType.valueOf(params[SkillsDataFieldsMap.impactType]);
+            var logLevel = mapSkillToLogLevel(impactType);
+            logger.log(logLevel, "Creating skill from params: " + Arrays.toString(params));
             return SkillsFactory.createSkillFromStringsByImpactType(params, impactType);
         } catch (Exception e) {
             throw new RuntimeException("Invalid skill params: " + Arrays.toString(params), e);
@@ -91,5 +63,17 @@ public class Main {
         var output = function.apply(input);
         var operationEnd = System.currentTimeMillis();
         return new MeasuredOperationOutput<>(operationName, operationEnd - operationStart, output) ;
+    }
+
+    public static Level mapSkillToLogLevel(ImpactType impactType) {
+        return switch (impactType) {
+            case PHYSICAL -> Level.SEVERE;
+            case ICE -> Level.WARNING;
+            case FIRE -> Level.INFO;
+            case ELECTRICITY -> Level.FINE;
+            case POISON -> Level.FINER;
+            case LIFE -> Level.FINEST;
+            case MEDICINE -> Level.ALL;
+        };
     }
 }
