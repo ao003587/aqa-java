@@ -16,7 +16,7 @@ public class Main {
     private static final String FILE_PATH = "src/main/resources/skills100.csv";
     private static Logger logger;
 
-    public static void main(String[] args) throws IOException {
+    public static void main(String[] args) {
 
         configureLogger();
 
