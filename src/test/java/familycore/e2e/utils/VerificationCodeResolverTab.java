@@ -1,6 +1,6 @@
-package familycore.e2e.Utils;
+package familycore.e2e.utils;
 
-import familycore.e2e.Utils.interfaces.VerificationCodeResolver;
+import familycore.e2e.utils.interfaces.VerificationCodeResolver;
 import familycore.e2e.page.interfaces.VerificationCodeReceiverPage;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WindowType;

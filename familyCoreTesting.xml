@@ -1,0 +1,11 @@
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.1.dtd">
+
+<suite name="FamilyCoreLogin" verbose="1" parallel="methods" >
+
+    <test name="login">
+        <classes>
+            <class name="familycore.e2e.test.LoginTest" />
+        </classes>
+    </test>
+
+</suite>
