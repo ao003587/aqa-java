@@ -6,13 +6,12 @@ import org.openqa.selenium.support.ui.FluentWait;
 
 import java.time.Duration;
 
-public class DashboardPage {
+public class DashboardPage extends PageObject {
     private static final By welcomeMessageBy = By.xpath("/html/body/div[1]/div/div/div[2]/div[1]");
     private static final String pageName = "dashboard";
-    private final WebDriver driver;
 
     public DashboardPage(WebDriver driver) {
-        this.driver = driver;
+        super(driver);
     }
 
     public String getWelcomeMessage() {

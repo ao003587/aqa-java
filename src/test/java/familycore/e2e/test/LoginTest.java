@@ -1,18 +1,19 @@
 package familycore.e2e.test;
 
-import familycore.e2e.utils.VerificationCodeResolverTab;
 import familycore.e2e.page.ConfirmationPage;
 import familycore.e2e.page.DashboardPage;
 import familycore.e2e.page.LoginPage;
 import familycore.e2e.page.YopmailPage;
+import familycore.e2e.utils.VerificationCodeResolverTab;
 import org.openqa.selenium.chrome.ChromeOptions;
-import org.openqa.selenium.edge.EdgeOptions;
 import org.openqa.selenium.remote.RemoteWebDriver;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
+import java.io.IOException;
 import java.net.MalformedURLException;
-import java.net.URL;
+import java.net.URI;
+import java.net.URISyntaxException;
 
 public class LoginTest {
 
@@ -23,9 +24,10 @@ public class LoginTest {
     private static final String password = "jdPassword1";
 
     @Test
-    public void loginShouldBePassedAndShowVerificationRequestMessage() throws MalformedURLException {
-        var options = new EdgeOptions();
-        var driver = new RemoteWebDriver(new URL(gridUrl), options);
+    public void loginShouldBePassedAndShowVerificationRequestMessage() throws MalformedURLException, URISyntaxException {
+
+        var options = new ChromeOptions();
+        var driver = new RemoteWebDriver(new URI(gridUrl).toURL(), options);
         try {
             var expectedVerificationRequestMessage = String.format("We’ve sent a confirmation link to %s. The link expires shortly, so please use it soon.", userName);
             driver.get(String.format("%s/#/auth/sign-in", baseUrl));
@@ -39,23 +41,23 @@ public class LoginTest {
     }
 
     @Test
-    public void loginWithEmailVerificationShouldBePassedAndShowHomePage() throws MalformedURLException {
+    public void loginWithEmailVerificationShouldBePassedAndShowHomePage() throws IOException, URISyntaxException {
         var options = new ChromeOptions();
-        var driver = new RemoteWebDriver(new URL(gridUrl), options);
+        var driver = new RemoteWebDriver(new URI(gridUrl).toURL(), options);
         try {
             var expectedWelcomeMessage = "Hi John, Welcome Back!";
             driver.get(String.format("%s/#/auth/sign-in", baseUrl));
             LoginPage loginPage = new LoginPage(driver);
             loginPage.login(userName, password);
 
-            var verificationCodeResolver = VerificationCodeResolverTab
+            var code = VerificationCodeResolverTab
                     .Builder
                     .start()
                     .setDriver(driver)
                     .setUrl(verificationEmailReceiverUrl)
                     .setVerificationCodeReceiverPage(new YopmailPage(driver))
-                    .createVerificationCodeResolverTab();
-            var code = verificationCodeResolver.getVerificationCode(userName);
+                    .createVerificationCodeResolverTab()
+                    .getVerificationCode(userName);
 
             new ConfirmationPage(driver).putVerificationCode(code);
 

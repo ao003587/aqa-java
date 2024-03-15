@@ -7,16 +7,14 @@ import org.openqa.selenium.interactions.Actions;
 import java.time.Duration;
 import java.util.Objects;
 
-public class LoginPage {
+public class LoginPage extends PageObject {
     public static final By emailBy = By.xpath("//*[@id=\"email\"]");
     public static final By passwordBy = By.xpath("//*[@id=\"root\"]/div/div/div[2]/div[2]/form/div[1]/div[2]/div/div/div/input");
     public static final By signInBy = By.xpath("//*[@id=\"root\"]/div/div/div[2]/div[2]/form/button");
     public static final By errorMessageBy = By.xpath("//*[@id=\"email-helper-text\"]");
 
-    private final WebDriver driver;
-
     public LoginPage(WebDriver driver) {
-        this.driver = driver;
+        super(driver);
     }
 
     public void login(String username, String password) {

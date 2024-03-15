@@ -6,14 +6,13 @@ import org.openqa.selenium.support.ui.FluentWait;
 
 import java.time.Duration;
 
-public class ConfirmationPage {
+public class ConfirmationPage extends PageObject {
     private static final By verificationCodeBy = By.xpath("//*[@id=\"one-time-code\"]");
     private static final By verificationMessageBy = By.xpath("/html/body/div/div/div/div[2]");
     private static final String pageName = "confirmation";
-    private final WebDriver driver;
 
     public ConfirmationPage(WebDriver driver) {
-        this.driver = driver;
+        super(driver);
     }
 
     public void putVerificationCode(String code) {
